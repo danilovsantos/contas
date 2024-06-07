@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: contas
+      POSTGRES_USER: contas
+      POSTGRES_PASSWORD: contas
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/contas
+      SPRING_DATASOURCE_USERNAME: contas
+      SPRING_DATASOURCE_PASSWORD: contas
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
